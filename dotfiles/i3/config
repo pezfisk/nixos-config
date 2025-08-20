@@ -1,0 +1,130 @@
+# Set Mod key (Windows key as main modifier)
+set $mod Mod4
+
+# Terminal and file manager programs
+set $terminal xfce4-terminal
+set $fileManager nautilus
+set $menu rofi -show drun
+
+# Autostart commands (executed once at startup)
+exec --no-startup-id sunshine
+exec --no-startup-id polybar
+exec --no-startup-id xrandr --output DP-3 --primary
+exec --no-startup-id bash ~/.config/polybar/launch.sh
+
+# Environment variables can be set before starting i3, usually in .xprofile or similar
+# If needed here, could use 'exec --no-startup-id' with 'export' commands or set them in your shell init
+
+# Gaps (using i3-gaps)
+gaps inner 3
+gaps outer 15
+
+# Window border size
+default_border pixel 2
+
+# Colors (active/inactive borders)
+# i3 uses colors defined in the config, example:
+client.focused          #ff436b #2aff61 #ffffff #ff436b #2aff61
+client.unfocused        #404040 #222222 #888888 #404040 #222222
+
+# Keyboard layout
+exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option lv3:ralt_alt,lv3:menu_switch,caps:swapescape
+
+# Touchpad natural scrolling (if on Xorg, using libinput)
+# exec --no-startup-id xinput set-prop "your-touchpad-device-name" "libinput Natural Scrolling Enabled" 1
+
+# Keybindings
+
+# Open terminal
+bindsym $mod+q exec $terminal
+
+# Kill focused window
+bindsym $mod+c kill
+
+# Exit i3
+bindsym $mod+m exit
+
+# Open file manager
+bindsym $mod+e exec $fileManager
+
+# Open menu
+bindsym $mod+r exec $menu
+
+# Toggle floating for focused window
+bindsym $mod+v floating toggle
+
+# Toggle fullscreen
+bindsym $mod+f fullscreen toggle
+
+# Workspace switching (1 to 10)
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# Move focused window to workspace (Shift + number)
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# Move focus with mod + hjkl (vim-style)
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+bindsym $mod+k focus up
+bindsym $mod+j focus down
+
+# Move window (mod + Shift + hjkl)
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+j move down
+
+# Screenshot (Print key)
+bindsym Print exec --no-startup-id hyprshot -m region --clipboard-only
+bindsym $mod+Print exec --no-startup-id hyprshot -m window --clipboard-only
+bindsym Shift+Print exec --no-startup-id hyprshot -m output --clipboard-only
+
+# Multimedia keys (for volume and brightness assuming wpctl and brightnessctl available)
+bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s 10%+
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 10%-
+
+# Media player controls (using playerctl)
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+# Floating rules (example for kitty if you want to float)
+for_window [class="kitty"] floating enable
+
+# Focused window border color customization and gaps require i3-gaps installed
+
+# Layout: i3 uses default tiling with optional split commands
+# No direct equivalent of Hyprland's dwindle layout, but you can tile or split vertically/horizontally:
+# bindsym $mod+p exec <script> to toggle layouts or scripts managing layout
+
+# Comments: The Hyprland config has environment variables for GTK, QT, cursor themes:
+# Set these in your shell environment or .xprofile to apply globally:
+#   XCURSOR_SIZE=24
+#   XCURSOR_THEME=WhiteSur-cursors
+#   QT_QPA_PLATFORMTHEME=qt6ct
+#   QT_STYLE_OVERRIDE=kvantum
+
+
