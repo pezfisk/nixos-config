@@ -105,7 +105,6 @@
   # Enable Fuse FIlesystem
   services.envfs.enable = true;
 
-
   # Install firefox.
   programs.firefox.enable = true;
 
