@@ -3,6 +3,8 @@
 CONFIG_DIR=~/nixos
 FLAKE_PATH="$CONFIG_DIR"
 
+echo $CONFIG_DIR
+
 set -e
 
 usage() {
