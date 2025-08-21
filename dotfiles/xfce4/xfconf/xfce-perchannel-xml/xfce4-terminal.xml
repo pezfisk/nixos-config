@@ -1,0 +1,12 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<channel name="xfce4-terminal" version="1.0">
+  <property name="misc-menubar-default" type="bool" value="false"/>
+  <property name="scrolling-bar" type="string" value="TERMINAL_SCROLLBAR_NONE"/>
+  <property name="misc-cursor-shape" type="string" value="TERMINAL_CURSOR_SHAPE_IBEAM"/>
+  <property name="misc-cursor-blinks" type="bool" value="true"/>
+  <property name="font-name" type="string" value="Hack Nerd Font Mono 12"/>
+  <property name="background-mode" type="string" value="TERMINAL_BACKGROUND_TRANSPARENT"/>
+  <property name="background-darkness" type="double" value="0.75"/>
+  <property name="color-use-theme" type="bool" value="false"/>
+</channel>

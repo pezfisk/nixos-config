@@ -7,13 +7,8 @@ set $fileManager nautilus
 set $menu rofi -show drun
 
 # Autostart commands (executed once at startup)
-exec --no-startup-id sunshine
 exec --no-startup-id polybar
-exec --no-startup-id xrandr --output DP-3 --primary
-exec --no-startup-id bash ~/.config/polybar/launch.sh
-
-# Environment variables can be set before starting i3, usually in .xprofile or similar
-# If needed here, could use 'exec --no-startup-id' with 'export' commands or set them in your shell init
+exec --no-startup-id bash ~/.config/polybar/launch.sh --forest
 
 # Gaps (using i3-gaps)
 gaps inner 3
@@ -23,15 +18,11 @@ gaps outer 15
 default_border pixel 2
 
 # Colors (active/inactive borders)
-# i3 uses colors defined in the config, example:
 client.focused          #ff436b #2aff61 #ffffff #ff436b #2aff61
 client.unfocused        #404040 #222222 #888888 #404040 #222222
 
 # Keyboard layout
 exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option lv3:ralt_alt,lv3:menu_switch,caps:swapescape
-
-# Touchpad natural scrolling (if on Xorg, using libinput)
-# exec --no-startup-id xinput set-prop "your-touchpad-device-name" "libinput Natural Scrolling Enabled" 1
 
 # Keybindings
 
@@ -113,18 +104,4 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Floating rules (example for kitty if you want to float)
 for_window [class="kitty"] floating enable
-
-# Focused window border color customization and gaps require i3-gaps installed
-
-# Layout: i3 uses default tiling with optional split commands
-# No direct equivalent of Hyprland's dwindle layout, but you can tile or split vertically/horizontally:
-# bindsym $mod+p exec <script> to toggle layouts or scripts managing layout
-
-# Comments: The Hyprland config has environment variables for GTK, QT, cursor themes:
-# Set these in your shell environment or .xprofile to apply globally:
-#   XCURSOR_SIZE=24
-#   XCURSOR_THEME=WhiteSur-cursors
-#   QT_QPA_PLATFORMTHEME=qt6ct
-#   QT_STYLE_OVERRIDE=kvantum
-
 

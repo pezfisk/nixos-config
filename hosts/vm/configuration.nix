@@ -23,7 +23,6 @@
     # System packages 
     rofi
     polybar
-    contour
     
     # Other stuff
     fastfetch

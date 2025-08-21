@@ -39,6 +39,5 @@
     wineWowPackages.stable
     winetricks
     gamescope
-
   ];
 }
