@@ -116,6 +116,7 @@
   environment.systemPackages = with pkgs; [
     # ESSENTIALS
     git
+    github-cli
     neovim
     wget
     gnome-keyring

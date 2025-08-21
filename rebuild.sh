@@ -54,3 +54,5 @@ echo "Cleanup done."
 current=$(nixos-rebuild list-generations | grep current)
 
 git commit -am "$current"
+
+git push
