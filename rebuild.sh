@@ -30,13 +30,13 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if git diff --quiet '*.nix'; then
+if git diff --quiet; then
   echo "No changes detected, exiting."
   popd
   exit 0
 fi
 
-git diff -U0 '*.nix'
+git diff
 
 if [[ -z "$HOST" ]]; then
   echo "Rebuilding and switching system with default host..."
@@ -46,8 +46,8 @@ else
   sudo nixos-rebuild switch --flake "$FLAKE_PATH#$HOST"
 fi
 
-echo "Cleaning up system generations older than 3 days..."
-sudo nix-collect-garbage --delete-older-than 3d
+echo "Cleaning up system generations to not have more than 5..."
+sudo nix-collect-garbage --delete-older-than +5
 
 echo "Cleanup done."
 

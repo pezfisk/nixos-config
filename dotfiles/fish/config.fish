@@ -1,9 +1,12 @@
 alias snr "sudo nixos-rebuild"
 alias rvim "EDITOR=nvim sudoedit"
+alias l "ls -a"
 
 alias .. "cd .."
 alias ... "cd ../.."
 alias .... "cd ../../.."
+
+set fish_greeting
 
 function reload_i3
     i3-msg reload

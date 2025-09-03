@@ -117,11 +117,13 @@
     # ESSENTIALS
     git
     github-cli
+    github-desktop
     neovim
     wget
     gnome-keyring
     iwd
     curl
+    docker
 
     # SHELLS
     fish
@@ -134,6 +136,7 @@
     home-manager
     btop
     _1password-gui
+    feh
 
   ];
 
