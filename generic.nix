@@ -137,6 +137,7 @@
     btop
     _1password-gui
     feh
+    sbctl
 
   ];
 

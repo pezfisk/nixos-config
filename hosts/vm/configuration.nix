@@ -19,6 +19,8 @@
 
   networking.hostName = "nixos-vm"; # Define your hostname.
 
+  services.openssh.enable = true;
+
   environment.systemPackages =  with pkgs; [
     # System packages 
     rofi

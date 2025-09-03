@@ -1,0 +1,2 @@
+# Ignore hardware-configuration to so its regenerated in every machine
+./modules/hardware-configuration.nix
