@@ -18,6 +18,9 @@
   networking.hostName = "nixos-default"; # Define your hostname.
 
   environment.systemPackages =  with pkgs; [
+    waybar
+    wofi
+    kitty
     eza
     zoxide
   ];
