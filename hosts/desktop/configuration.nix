@@ -26,7 +26,7 @@
       nvidiaSettings = true;
 
       package = config.boot.kernelPackages.nvidiaPackages.production;
-    }
+    };
 
   programs.hyprland.enable = true;
 
@@ -85,11 +85,11 @@
     easyeffects
     lsp-plugins
     calf
-    libebu128
+    libebur128
     zam-plugins
     zita-convolver
-    mdautils
-    speedxdsp
+    mda_lv2
+    speexdsp
     soundtouch
     rnnoise
     deepfilternet
