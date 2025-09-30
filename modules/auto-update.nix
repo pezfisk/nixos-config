@@ -1,4 +1,4 @@
-{ config, pkgs, ...}; {
+{ config, pkgs, inputs, ...}: {
   
   system.autoUpgrade = {
     enable = true;
@@ -15,13 +15,9 @@
   };
 
 
-  nix.gc {
+  nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 30d";
   };
-
-  enviroment.systemPackages = with pkgs; [
-    libnotify
-  ];
 }

@@ -138,7 +138,7 @@
     _1password-gui
     feh
     sbctl
-
+    libnotify
   ];
 
   home-manager.backupFileExtension = "bak";
