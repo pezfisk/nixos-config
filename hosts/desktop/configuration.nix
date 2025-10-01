@@ -13,10 +13,13 @@
       enable = true;
     };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver = {
+    videoDrivers = ["nvidia"];
+    displayManager.gdm.enable = true;
+  };
 
   hardware.nvidia = {
-      modesettingg.enable = true;
+      modesetting.enable = true;
 
       powerManagement.enable = false;
       powerManagement.finegrained = false;
@@ -27,7 +30,7 @@
 
       package = config.boot.kernelPackages.nvidiaPackages.production;
     };
-
+  
   programs.hyprland.enable = true;
 
   programs.steam = {
