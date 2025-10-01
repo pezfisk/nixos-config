@@ -29,6 +29,8 @@
 	     "caffeine@patapon.info"
 	     "dash-to-dock@micxgx.gmail.com"
 	     "blur-my-shell@aunetx"
+	     "Vitals@CoreCoding.com"
+	     "mediacontrols@cliffniff.github.com"
 	   ];
 	 };
 	 
@@ -56,16 +58,19 @@
     gnome-music
     gnome-photos
     gnome-terminal
+    gnome-extension-manager
     totem
 
     # Gnome Extensions
-    gnomeExtensions.caffeine
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.blur-my-shell
-
-    # Others
+        # Others
     eza
     zoxide
     dconf-editor
-  ];
+  ] ++ (with gnomeExtensions; [
+	caffeine
+	dash-to-dock
+	blur-my-shell
+	vitals
+	media-controls
+  ]);
 }
