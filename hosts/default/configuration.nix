@@ -9,8 +9,7 @@
       inputs.home-manager.nixosModules.home-manager
     ];
 
-  services.xserver = {
-    enable = true;
+  services = {
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
   };
@@ -31,6 +30,8 @@
 	     "blur-my-shell@aunetx"
 	     "Vitals@CoreCoding.com"
 	     "mediacontrols@cliffniff.github.com"
+	     "compiz-windows-effect@hermes83.github.com"
+	     "compiz-alike-magic-lamp-effect@hermes83.github.com"
 	   ];
 	 };
 	 
@@ -61,7 +62,7 @@
     gnome-extension-manager
     totem
 
-    # Gnome Extensions
+	handbrake
         # Others
     eza
     zoxide
@@ -72,5 +73,7 @@
 	blur-my-shell
 	vitals
 	media-controls
+	compiz-windows-effect
+	compiz-alike-magic-lamp-effect
   ]);
 }

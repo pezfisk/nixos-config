@@ -2,7 +2,7 @@
   
   system.autoUpgrade = {
     enable = true;
-    flake = "github:pezfisk/nixos-config";
+    flake = "github:pezfisk/nixos-config#default";
 
     flags = [
     	"--print-build-logs"
