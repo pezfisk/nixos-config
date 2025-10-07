@@ -14,10 +14,28 @@
     desktopManager.gnome.enable = true;
   };
 
+  systemd.services.flatpak-repo = {
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.flatpak ];
+    script = ''
+    	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    '';
+  };
+
+  security = {
+    sudo.enable = false;
+    sudo-rs = {
+      enable = true;
+      execWheelOnly = true;
+      wheelNeedsPassword = true;
+    };
+  };
+
+  programs.steam.enable = true;
+
   programs.dconf.enable = true;
 
   programs.dconf.profiles.user.databases = [
-    #./home.nix;
      {
        lockAll = true;
 
@@ -33,9 +51,37 @@
 	     "compiz-windows-effect@hermes83.github.com"
 	     "compiz-alike-magic-lamp-effect@hermes83.github.com"
 	   ];
+
+	   favorite-apps = [
+	     "firefox.desktop"
+	     "org.gnome.Nautilus.desktop"
+	     "org.gnome.Console.desktop"
+	     "org.gnome.Software.desktop"
+	     "org.gnome.Settings.desktop"
+	   ];
+	 };
+
+	 "org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect" = {
+	   friction = "2";
+	   mass = "80";
+	   speedup-factor-divider = "10";
+	   spring-k = "6";
 	 };
 	 
-	 "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+	 "org/gnome/desktop/interface" = {
+	   color-scheme = "prefer-dark";
+	   font-antialiasing = "rgba";
+	 };
+
+	 "org/gnome/desktop/wm/preferences".button-layout = "icon,menu:minimize,maximize,close";
+	 
+	 ## Experimental features crashes VM, ill test on real hardware
+	 #"org/gnome/mutter".experimental-features = [
+	 #  "variable-refresh-rate"
+	 #  "scale-monitor-framebuffer"
+	 #  "xwayland-native-scaling"
+	 #];
+
         };
 
 	#locks = [
@@ -51,22 +97,32 @@
 
   networking.hostName = "nixos-default"; # Define your hostname.
 
+  #enviroment.gnome.excludePackages = (with pkgs; [
+  #  atomix
+  #  geary
+  #  hitori
+  #  iagno
+  #]);
+
   environment.systemPackages =  with pkgs; [
     # Gnome Shell
-    cheese
     evince
-    gedit
-    gnome-music
-    gnome-photos
     gnome-terminal
     gnome-extension-manager
-    totem
-
-	handbrake
         # Others
     eza
     zoxide
     dconf-editor
+    gnome-tweaks
+    handbrake
+    mangohud
+    thunderbird
+
+    # uutils
+    uutils-coreutils-noprefix
+    uutils-diffutils
+    uutils-findutils
+
   ] ++ (with gnomeExtensions; [
 	caffeine
 	dash-to-dock
