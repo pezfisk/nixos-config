@@ -48,6 +48,8 @@
     nerd-fonts.hack
     nerd-fonts.ubuntu
     nerd-fonts.space-mono
+    _0xproto
+    inter
   ];
 
   # Enable the X11 windowing system.

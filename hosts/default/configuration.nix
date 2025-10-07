@@ -37,7 +37,7 @@
 
   programs.dconf.profiles.user.databases = [
      {
-       lockAll = true;
+       #lockAll = true;
 
        settings = {
          "org/gnome/shell" = {
@@ -71,10 +71,12 @@
 	 "org/gnome/desktop/interface" = {
 	   color-scheme = "prefer-dark";
 	   font-antialiasing = "rgba";
+	   font-name = "Inter 11";
+	   monospace-font-name = "Hack Nerd Font 11";
 	 };
 
 	 "org/gnome/desktop/wm/preferences".button-layout = "icon,menu:minimize,maximize,close";
-	 
+
 	 ## Experimental features crashes VM, ill test on real hardware
 	 #"org/gnome/mutter".experimental-features = [
 	 #  "variable-refresh-rate"
@@ -84,14 +86,10 @@
 
         };
 
-	#locks = [
-	#  "/org/gnome/shell/enabled-extensions"
-	#  "/org/gnome/shell/disabled-extensions"
-	#];
-
-	#home.packages = with pkgs.gnomeExtensions; [
-	#  	caffeine
-	#];
+	locks = [
+	  "/org/gnome/shell/enabled-extensions"
+	  "/org/gnome/shell/disabled-extensions"
+	];
       }
   ];
 
