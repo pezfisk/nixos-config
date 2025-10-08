@@ -14,6 +14,11 @@
     desktopManager.gnome.enable = true;
   };
 
+  hardware.graphics = {
+      enable = true;
+      enable32bit = true;
+  }
+
   systemd.services.flatpak-repo = {
     wantedBy = [ "multi-user.target" ];
     path = [ pkgs.flatpak ];
