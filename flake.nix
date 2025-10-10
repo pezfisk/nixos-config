@@ -38,7 +38,7 @@
             modules = [
               ./hosts/vm/configuration.nix
             ];
-          };
+	 };
       };
 
       homeConfigurations = {

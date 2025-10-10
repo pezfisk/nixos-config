@@ -18,7 +18,8 @@
     wantedBy = [ "multi-user.target" ];
     path = [ pkgs.flatpak ];
     script = ''
-    	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+	flatpak install flathub app/io.github.kolunmi.Bazaar/x86_64/stable -y
     '';
   };
 
@@ -56,7 +57,7 @@
 	     "firefox.desktop"
 	     "org.gnome.Nautilus.desktop"
 	     "org.gnome.Console.desktop"
-	     "org.gnome.Software.desktop"
+	     "io.github.kolunmi.Bazaar.desktop"
 	     "org.gnome.Settings.desktop"
 	   ];
 	 };
@@ -107,7 +108,8 @@
     evince
     gnome-terminal
     gnome-extension-manager
-        # Others
+
+    # Others
     eza
     zoxide
     dconf-editor
@@ -115,6 +117,8 @@
     handbrake
     mangohud
     thunderbird
+
+    rustup
 
     # uutils
     uutils-coreutils-noprefix
