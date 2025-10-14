@@ -6,8 +6,14 @@
       ../../generic.nix
       ../../modules/hardware-configuration.nix
       ../../modules/auto-update.nix
+
       inputs.home-manager.nixosModules.home-manager
     ];
+
+  home-manager = {
+    backupFileExtension = "bak";
+    users.marc = import ./home.nix;
+  };
 
   services = {
     displayManager.gdm.enable = true;
@@ -56,7 +62,7 @@
 	   favorite-apps = [
 	     "firefox.desktop"
 	     "org.gnome.Nautilus.desktop"
-	     "org.gnome.Console.desktop"
+	     "org.gnome.Ptyxis.desktop"
 	     "io.github.kolunmi.Bazaar.desktop"
 	     "org.gnome.Settings.desktop"
 	   ];
@@ -104,21 +110,26 @@
   #]);
 
   environment.systemPackages =  with pkgs; [
-    # Gnome Shell
+    # Gnome
     evince
-    gnome-terminal
+    ptyxis
     gnome-extension-manager
-
-    # Others
-    eza
-    zoxide
     dconf-editor
     gnome-tweaks
-    handbrake
-    mangohud
-    thunderbird
 
+    # CLI tools
+    eza
+    zoxide
     rustup
+    fzf
+    ripgrep
+    bat
+
+    # software
+    packet
+    handbrake
+    thunderbird
+    mangohud
 
     # uutils
     uutils-coreutils-noprefix

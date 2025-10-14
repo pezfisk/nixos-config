@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
-# Default username (optional)
-USER=""
+# Defaults
+USER="marc"
+HOST="default"
 
 # Parse command-line arguments
 while [[ "$#" -gt 0 ]]; do
   case $1 in
   --user)
     USER="$2"
+    shift
+    ;;
+  --host)
+    HOST="$2"
     shift
     ;;
   *)
@@ -17,14 +22,22 @@ while [[ "$#" -gt 0 ]]; do
   shift
 done
 
-if [ -z "$USER" ]; then
+if [[ -z "$USER" ]]; then
+  echo "Error: --user parameter is requied"
   echo "Usage: $0 --user USERNAME"
   exit 1
 fi
 
-echo "Rebuilding machine for user: $USER"
 
-find ~/nixos -type f -exec sed -i "s/marc/NEW_WORD/g" {} +
+if [[ -z "$HOST" ]]; then
+  echo "Error: --host parameter is requied"
+  echo "Usage: $0 --host USERNAME"
+  exit 1
+fi
+
+echo "Rebuilding machine for user: $USER on $HOST"
+
+find ~/nixos -type f -exec sed -i "s/marc/$USER/g" {} +
 
 echo "Replaced default user with: ${USER}"
 
@@ -36,6 +49,6 @@ echo "Generated hardware-configuration"
 
 echo "Rebuilding machine"
 
-bash ./rebuild.sh
+bash ./rebuild.sh --host $HOST
 
 echo "Built new machine correctly"

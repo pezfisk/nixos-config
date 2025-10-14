@@ -1,6 +1,11 @@
 alias snr "sudo nixos-rebuild"
 alias rvim "EDITOR=nvim sudoedit"
+alias ls "eza -lh --icons=auto --group-directories-first"
 alias l "ls -a"
+alias lt "eza --tree --level=2 --icons --git --long"
+alias lta "lt -a"
+alias ff "fzf --preview 'bat --color=always --style=numbers {}'"
+alias cd "z"
 
 alias .. "cd .."
 alias ... "cd ../.."
@@ -28,6 +33,20 @@ function nf
     nix-shell $argv
 end
 
+function rebuild-nix
+    z /home/$USER/nixos
+    sudo nixos-rebuild switch --flake ".#$argv"
+end
+
+function test-nix
+    z /home/$USER/nixos
+    sudo nixos-rebuild test --flake ".#$argv"
+end
+
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
+
+
+zoxide init fish | source
