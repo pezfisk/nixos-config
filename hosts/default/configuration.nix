@@ -124,6 +124,9 @@
     fzf
     ripgrep
     bat
+    dust
+    duf
+    tldr
 
     # software
     packet

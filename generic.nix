@@ -71,6 +71,17 @@
   # Enable flatpak
   services.flatpak.enable = true;
 
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      dockerCompat = true;
+
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
+
   # Enable XDG Desktop Portal
   xdg.portal = {
   	enable = true;
@@ -124,7 +135,10 @@
     gnome-keyring
     iwd
     curl
-    docker
+
+    podman
+    dive
+    podman-compose
 
     # SHELLS
     fish
