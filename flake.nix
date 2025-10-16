@@ -39,6 +39,15 @@
               ./hosts/vm/configuration.nix
             ];
 	 };
+
+	 iso = nixpkgs.lib.nixosSystem {
+	   system = "x86_64-linux";
+	   specialArgs = { inherit inputs; };
+	   modules = [
+	     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+	     ./hosts/iso/configuration.nix
+	   ];
+	  };
       };
 
       homeConfigurations = {
