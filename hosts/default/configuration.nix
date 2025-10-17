@@ -40,6 +40,11 @@
     };
   };
 
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    qt6.qtbase
+  ];
+
   programs.steam.enable = true;
 
   programs.dconf.enable = true;
@@ -122,7 +127,6 @@
     # CLI tools
     eza
     zoxide
-    rustup
     fzf
     ripgrep
     bat
