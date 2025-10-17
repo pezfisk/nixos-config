@@ -53,4 +53,5 @@ if status is-interactive
 end
 
 
+direnv hook fish | source
 zoxide init fish | source

@@ -14,6 +14,7 @@
       enable = true;
       nix-direnv.enable = true;
       enableFishIntegration = true;
+    };
 
     home.stateVersion = "25.11";
 }
