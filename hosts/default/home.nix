@@ -10,5 +10,10 @@
     home.file.".config/fish".source = ../../dotfiles/fish;
     home.file.".config/easyeffects".source = ../../dotfiles/easyeffects;
 
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableFishIntegration = true;
+
     home.stateVersion = "25.11";
 }
