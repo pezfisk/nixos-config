@@ -4,7 +4,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ../../generic.nix
-      ../../modules/hardware-configuration.nix
+      ./hardware-configuration.nix
       inputs.home-manager.nixosModules.home-manager
     ];
 
@@ -13,9 +13,10 @@
       enable = true;
     };
 
-  services.xserver = {
-    videoDrivers = ["nvidia"];
+  services = {
     displayManager.gdm.enable = true;
+    
+    xserver.videoDrivers = ["nvidia"];
   };
 
   hardware.nvidia = {
@@ -42,6 +43,28 @@
       users.marc = import ./home.nix;
     };
 
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita";
+  };
+
+  security = {
+    sudo.enable = false;
+    sudo-rs = {
+      enable = true;
+      execWheelOnly = true;
+      wheelNeedsPassword = true;
+    };
+  };
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep 3 --optimise";
+    flake = "/home/marc/nixos";
+  };
+
   networking.hostName = "nixos-desktop"; # Define your hostname.
 
   environment.systemPackages =  with pkgs; [
@@ -49,7 +72,15 @@
     kitty
     wofi
     waybar
-    spicetify-cli
+    eza
+    zoxide
+    fzf
+    ripgrep
+    bat
+    dust
+    duf
+    tldr
+    uutils-coreutils-noprefix
 
     # Hyprland stuff
     hyprland
