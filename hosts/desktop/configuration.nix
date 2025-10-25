@@ -17,6 +17,13 @@
     displayManager.gdm.enable = true;
     
     xserver.videoDrivers = ["nvidia"];
+
+    flatpak = {
+      packages = [
+        "app.zen_browser.zen"
+        "dev.vencord.Vesktop"
+      ];
+    };
   };
 
   hardware.nvidia = {
@@ -102,6 +109,7 @@
     onlyoffice-desktopeditors
     youtube-music
     yt-dlp
+    phinger-cursors
 
     # Gaming
     wineWowPackages.stable

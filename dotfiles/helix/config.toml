@@ -1,0 +1,4 @@
+theme = "carbon"
+
+[editor.file-picker]
+hidden = false

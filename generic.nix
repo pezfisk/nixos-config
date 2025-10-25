@@ -130,11 +130,13 @@
     git
     github-cli
     github-desktop
-    neovim
     wget
+    evil-helix
     gnome-keyring
     iwd
     curl
+    nil
+    nixpkgs-fmt
 
     podman
     dive

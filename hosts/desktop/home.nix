@@ -10,6 +10,7 @@
     home.file.".config/fish".source = ../../dotfiles/fish;
     home.file.".config/kitty".source = ../../dotfiles/kitty;
     home.file.".config/easyeffects".source = ../../dotfiles/easyeffects;
+    home.file.".config/helix".source = ../../dotfiles/helix;
 
     programs.direnv = {
 	enable = true;	

@@ -10,6 +10,7 @@ alias du "dust"
 alias df "duf"
 alias cat "bat"
 alias man "tldr"
+alias nvim "hx"
 
 alias .. "cd .."
 alias ... "cd ../.."
