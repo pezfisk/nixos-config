@@ -1,59 +1,30 @@
 { config, pkgs, inputs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ../../generic.nix
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.home-manager
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ../../generic.nix
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.home-manager
+  ];
 
-  # Enable NVIDIA drivers
-  hardware.graphics = {
-      enable = true;
-    };
+  hardware = {
+    graphics.enable = true;
 
-  services = {
-    displayManager.gdm.enable = true;
-    
-    xserver.videoDrivers = ["nvidia"];
-
-    flatpak = {
-      packages = [
-        "app.zen_browser.zen"
-        "dev.vencord.Vesktop"
-      ];
-    };
-  };
-
-  hardware.nvidia = {
+    nvidia = {
       modesetting.enable = true;
-
       powerManagement.enable = false;
-      powerManagement.finegrained = false;
-
       open = true;
-
       nvidiaSettings = true;
-
       package = config.boot.kernelPackages.nvidiaPackages.production;
     };
-  
-  programs.hyprland.enable = true;
 
-  programs.steam = {
+    opentabletdriver = {
       enable = true;
+      daemon.enable = true;
     };
 
-  home-manager = {
-      backupFileExtension = "bak";
-      users.marc = import ./home.nix;
-    };
-
-  qt = {
-    enable = true;
-    platformTheme = "gnome";
-    style = "adwaita";
+    bluetooth.enable = true;
   };
 
   security = {
@@ -65,16 +36,62 @@
     };
   };
 
-  programs.nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep 3 --optimise";
-    flake = "/home/marc/nixos";
+  services = {
+    displayManager.gdm.enable = true;
+
+    xserver.videoDrivers = [ "nvidia" ];
+
+    flatpak.packages = [
+      "app.zen_browser.zen"
+      "dev.vencord.Vesktop"
+      "org.gimp.GIMP"
+    ];
   };
 
-  networking.hostName = "nixos-desktop"; # Define your hostname.
+  virtualisation = {
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
+  };
 
-  environment.systemPackages =  with pkgs; [
+  home-manager = {
+    backupFileExtension = "bak";
+    users.marc = import ./home.nix;
+  };
+
+  programs = {
+    virt-manager.enable = true;
+    hyprland.enable = true;
+    steam.enable = true;
+    gamemode.enable = true;
+
+    nh = {
+      enable = true;
+      flake = "/home/marc/nixos";
+      clean = {
+        enable = true;
+        dates = "weekly";
+        extraArgs = "--keep 3 --optimise";
+      };
+    };
+  };
+
+  qt = {
+    enable = true;
+    style = "adwaita";
+  };
+
+  system.activationScripts.btrfsTurning = ''
+    # enable cow and compression on /home
+    if [ -d /home ]; then
+      ${pkgs.btrfs-progs}/bin/btrfs property set /home compression zstd || true
+    fi
+  '';
+
+  networking = {
+    hostName = "nixos-desktop";
+  };
+
+  environment.systemPackages = with pkgs; [
     # System packages 
     kitty
     wofi
@@ -87,7 +104,11 @@
     dust
     duf
     tldr
+    overskride
+    e2fsprogs
+    btrfs-progs
     uutils-coreutils-noprefix
+    distrobox
 
     # Hyprland stuff
     hyprland
@@ -100,7 +121,6 @@
 
     # Other
     alvr
-    gimp
     krita
     fastfetch
     nautilus
@@ -110,9 +130,11 @@
     youtube-music
     yt-dlp
     phinger-cursors
+    winboat
+    mixxx
 
     # Gaming
-    wineWowPackages.stable
+    wineWow64Packages.stagingFull
     winetricks
     gamescope
     gamescope
@@ -121,6 +143,7 @@
     sunshine
     prismlauncher
     heroic
+    mangohud
 
     # Easy Effects
     easyeffects

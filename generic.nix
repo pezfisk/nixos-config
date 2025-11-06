@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./modules/users.nix
     ];
 
@@ -42,13 +43,10 @@
   };
 
   fonts.packages = with pkgs; [
-    nerd-fonts.fira-code
-    nerd-fonts.droid-sans-mono
-    nerd-fonts.noto
-    nerd-fonts.hack
-    nerd-fonts.ubuntu
-    nerd-fonts.space-mono
-    _0xproto
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only
+    noto-fonts-color-emoji
+    font-awesome
     inter
   ];
 
@@ -71,8 +69,8 @@
   # Enable flatpak
   services.flatpak.enable = true;
 
-  virtualisation.containers.enable = true;
   virtualisation = {
+    containers.enable = true;
     podman = {
       enable = true;
 
@@ -84,15 +82,15 @@
 
   # Enable XDG Desktop Portal
   xdg.portal = {
-  	enable = true;
-	extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   # Enable gnome-keyring
   security.pam.services.gdm.enableGnomeKeyring = true;
 
   services.gnome.gnome-keyring = {
-  	enable = true;
+    enable = true;
   };
 
   # Enable CUPS to print documents.
@@ -156,6 +154,7 @@
     feh
     sbctl
     libnotify
+    cyme
   ];
 
   home-manager.backupFileExtension = "bak";
