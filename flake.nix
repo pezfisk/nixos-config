@@ -10,68 +10,92 @@
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
- };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    nix-flatpak,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-    #      pkgs = nixpkgs.legacyPackages.$(system);
-  in {
-    nixosConfigurations = {
-      default = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/default/configuration.nix
-          ./modules/auto-update.nix
-        ];
-      };
-
-      desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
-        modules = [
-          nix-flatpak.nixosModules.nix-flatpak
-          ./hosts/desktop/configuration.nix
-        ];
-      };
-
-      vm = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/vm/configuration.nix
-        ];
-      };
-
-      iso = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
-        modules = [
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-          ./hosts/iso/configuration.nix
-        ];
-      };
+    simple-nixos-mailserver = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    homeConfigurations = {
-      default = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {inherit system;};
-        modules = [
-          ./hosts/default/home.nix
-        ];
-      };
-
-      vm = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {inherit system;};
-        modules = [
-          ./hosts/vm/home.nix
-        ];
-      };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+
+  outputs =
+    { self
+    , nixpkgs
+    , home-manager
+    , nix-flatpak
+    , simple-nixos-mailserver
+    , sops-nix
+    , ...
+    } @ inputs:
+    let
+      system = "x86_64-linux";
+      #      pkgs = nixpkgs.legacyPackages.$(system);
+    in
+    {
+      nixosConfigurations = {
+        default = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/default/configuration.nix
+            ./modules/auto-update.nix
+          ];
+        };
+
+        desktop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            nix-flatpak.nixosModules.nix-flatpak
+            ./hosts/desktop/configuration.nix
+          ];
+        };
+
+        vm = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/vm/configuration.nix
+          ];
+        };
+
+        rpi4 = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/rpi4/configuration.nix
+            simple-nixos-mailserver.nixosModule
+            sops-nix.nixosModules.sops
+          ];
+        };
+
+        iso = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+            ./hosts/iso/configuration.nix
+          ];
+        };
+      };
+
+      homeConfigurations = {
+        default = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { inherit system; };
+          modules = [
+            ./hosts/default/home.nix
+          ];
+        };
+
+        vm = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { inherit system; };
+          modules = [
+            ./hosts/vm/home.nix
+          ];
+        };
+      };
+    };
 }

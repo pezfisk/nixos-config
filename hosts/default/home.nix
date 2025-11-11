@@ -9,6 +9,7 @@
     #home.file.".config/wofi".source = ../../dotfiles/wofi;
     home.file.".config/fish".source = ../../dotfiles/fish;
     home.file.".config/easyeffects".source = ../../dotfiles/easyeffects;
+    home.file.".config/helix".source = ../../dotfiles/helix;
 
     programs.direnv = {
       enable = true;

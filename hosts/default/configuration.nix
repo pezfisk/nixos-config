@@ -2,10 +2,11 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ../../generic.nix
       ../../modules/hardware-configuration.nix
-      ../../modules/auto-update.nix
+      #      ../../modules/auto-update.nix
 
       inputs.home-manager.nixosModules.home-manager
     ];
@@ -26,8 +27,8 @@
     wants = [ "network-online.target" ];
     path = [ pkgs.flatpak ];
     script = ''
-    	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-	flatpak install flathub app/io.github.kolunmi.Bazaar/x86_64/stable -y
+          	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+      	flatpak install flathub app/io.github.kolunmi.Bazaar/x86_64/stable -y
     '';
   };
 
@@ -40,71 +41,66 @@
     };
   };
 
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    qt6.qtbase
-  ];
-
   programs.steam.enable = true;
 
   programs.dconf.enable = true;
 
   programs.dconf.profiles.user.databases = [
-     {
-       #lockAll = true;
+    {
+      #lockAll = true;
 
-       settings = {
-         "org/gnome/shell" = {
-           disable-user-extensions = false;
-           enabled-extensions = [
-	     "caffeine@patapon.info"
-	     "dash-to-dock@micxgx.gmail.com"
-	     "blur-my-shell@aunetx"
-	     "Vitals@CoreCoding.com"
-	     "mediacontrols@cliffniff.github.com"
-	     "compiz-windows-effect@hermes83.github.com"
-	     "compiz-alike-magic-lamp-effect@hermes83.github.com"
-	   ];
+      settings = {
+        "org/gnome/shell" = {
+          disable-user-extensions = false;
+          enabled-extensions = [
+            "caffeine@patapon.info"
+            "dash-to-dock@micxgx.gmail.com"
+            "blur-my-shell@aunetx"
+            "Vitals@CoreCoding.com"
+            "mediacontrols@cliffniff.github.com"
+            "compiz-windows-effect@hermes83.github.com"
+            "compiz-alike-magic-lamp-effect@hermes83.github.com"
+          ];
 
-	   favorite-apps = [
-	     "firefox.desktop"
-	     "org.gnome.Nautilus.desktop"
-	     "org.gnome.Ptyxis.desktop"
-	     "io.github.kolunmi.Bazaar.desktop"
-	     "org.gnome.Settings.desktop"
-	   ];
-	 };
-
-	 "org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect" = {
-	   friction = "2";
-	   mass = "80";
-	   speedup-factor-divider = "10";
-	   spring-k = "6";
-	 };
-	 
-	 "org/gnome/desktop/interface" = {
-	   color-scheme = "prefer-dark";
-	   font-antialiasing = "rgba";
-	   font-name = "Inter 11";
-	   monospace-font-name = "Hack Nerd Font 11";
-	 };
-
-	 "org/gnome/desktop/wm/preferences".button-layout = "icon,menu:minimize,maximize,close";
-
-	 ## Experimental features crashes VM, ill test on real hardware
-	 #"org/gnome/mutter".experimental-features = [
-	 #  "variable-refresh-rate"
-	 #  "scale-monitor-framebuffer"
-	 #  "xwayland-native-scaling"
-	 #];
-
+          favorite-apps = [
+            "firefox.desktop"
+            "org.gnome.Nautilus.desktop"
+            "org.gnome.Ptyxis.desktop"
+            "io.github.kolunmi.Bazaar.desktop"
+            "org.gnome.Settings.desktop"
+          ];
         };
 
-	locks = [
-	  "/org/gnome/shell/enabled-extensions"
-	  "/org/gnome/shell/disabled-extensions"
-	];
-      }
+        "org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect" = {
+          friction = "2";
+          mass = "80";
+          speedup-factor-divider = "10";
+          spring-k = "6";
+        };
+
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+          font-antialiasing = "rgba";
+          font-name = "Inter 11";
+          monospace-font-name = "Hack Nerd Font 11";
+        };
+
+        "org/gnome/desktop/wm/preferences".button-layout = "icon,menu:minimize,maximize,close";
+
+        ## Experimental features crashes VM, ill test on real hardware
+        #"org/gnome/mutter".experimental-features = [
+        #  "variable-refresh-rate"
+        #  "scale-monitor-framebuffer"
+        #  "xwayland-native-scaling"
+        #];
+
+      };
+
+      locks = [
+        "/org/gnome/shell/enabled-extensions"
+        "/org/gnome/shell/disabled-extensions"
+      ];
+    }
   ];
 
   networking.hostName = "nixos-default"; # Define your hostname.
@@ -116,7 +112,7 @@
   #  iagno
   #]);
 
-  environment.systemPackages =  with pkgs; [
+  environment.systemPackages = with pkgs; [
     # Gnome
     evince
     ptyxis
@@ -133,6 +129,7 @@
     dust
     duf
     tldr
+    nh
 
     # software
     packet
@@ -146,12 +143,12 @@
     uutils-findutils
 
   ] ++ (with gnomeExtensions; [
-	caffeine
-	dash-to-dock
-	blur-my-shell
-	vitals
-	media-controls
-	compiz-windows-effect
-	compiz-alike-magic-lamp-effect
+    caffeine
+    dash-to-dock
+    blur-my-shell
+    vitals
+    media-controls
+    compiz-windows-effect
+    compiz-alike-magic-lamp-effect
   ]);
 }
