@@ -1,12 +1,12 @@
-{ config, pkgs, inputs, ...}: {
-  
+{ config, pkgs, inputs, ... }: {
+
   system.autoUpgrade = {
     enable = true;
     flake = "github:pezfisk/nixos-config#default";
 
     flags = [
-    	"--print-build-logs"
-	"--no-write-lock-file"
+      "--print-build-logs"
+      "--no-write-lock-file"
     ];
 
     dates = "daily";

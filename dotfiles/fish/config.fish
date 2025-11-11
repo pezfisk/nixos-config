@@ -5,12 +5,13 @@ alias l "ls -a"
 alias lt "eza --tree --level=2 --icons --git --long"
 alias lta "lt -a"
 alias ff "fzf --preview 'bat --color=always --style=numbers {}'"
-alias cd "z"
-alias du "dust"
-alias df "duf"
-alias cat "bat"
-alias man "tldr"
-alias nvim "hx"
+alias cd z
+alias du dust
+alias df duf
+alias cat bat
+alias man tldr
+alias nvim hx
+alias lsusb "cyme --headings"
 
 alias .. "cd .."
 alias ... "cd ../.."
@@ -39,20 +40,22 @@ function nf
 end
 
 function rebuild-nix
+    set back $(pwd)
     z /home/$USER/nixos
     sudo nixos-rebuild switch --flake ".#$argv"
+    cd $back
 end
 
 function test-nix
+    set back $(pwd)
     z /home/$USER/nixos
     sudo nixos-rebuild test --flake ".#$argv"
+    cd $back
 end
-
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
-
 
 direnv hook fish | source
 zoxide init fish | source

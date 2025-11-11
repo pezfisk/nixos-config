@@ -1,43 +1,47 @@
 { config, pkgs, ... }:
 
 {
-    home.username = "marc";
-    home.homeDirectory = "/home/marc";
+  home.username = "marc";
+  home.homeDirectory = "/home/marc";
 
-    home.file.".config/hypr".source = ../../dotfiles/hypr;
-    home.file.".config/waybar".source = ../../dotfiles/waybar;
-    home.file.".config/wofi".source = ../../dotfiles/wofi;
-    home.file.".config/fish".source = ../../dotfiles/fish;
-    home.file.".config/kitty".source = ../../dotfiles/kitty;
-    home.file.".config/easyeffects".source = ../../dotfiles/easyeffects;
-    home.file.".config/helix".source = ../../dotfiles/helix;
+  home.file.".config/hypr".source = ../../dotfiles/hypr;
+  home.file.".config/wofi".source = ../../dotfiles/wofi;
+  home.file.".config/fish".source = ../../dotfiles/fish;
+  home.file.".config/kitty".source = ../../dotfiles/kitty;
+  home.file.".config/easyeffects".source = ../../dotfiles/easyeffects;
+  home.file.".config/helix".source = ../../dotfiles/helix;
+  home.file.".config/waybar".source = ../../dotfiles/waybar;
 
-    programs.direnv = {
-	enable = true;	
-	nix-direnv.enable = true;
-	enableFishIntegration = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableFishIntegration = true;
+  };
+
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
     };
-
-    dconf.settings = {
-      "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
-      };
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
     };
+  };
 
-    gtk = {
-      enable = true;
-      theme = {
-        name = "Adwaita-dark";
-	package = pkgs.gnome-themes-extra;
-      };
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
     };
+  };
 
-    home.pointerCursor = {
-	name = "phinger-cursors-dark";
-	package = pkgs.phinger-cursors;
-	size = 32;
-	gtk.enable = true;
-    };
+  home.pointerCursor = {
+    name = "phinger-cursors-dark";
+    package = pkgs.phinger-cursors;
+    size = 32;
+    gtk.enable = true;
+  };
 
-    home.stateVersion = "25.11";
+  home.stateVersion = "25.11";
 }
