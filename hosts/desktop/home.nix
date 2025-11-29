@@ -28,6 +28,17 @@
     };
   };
 
+  xdg.configFile."openvr/openvr.vrpath".text = ''
+    {
+      "config" : [ "${config.home.homeDirectory}/.local/share/Steam/config" ],
+      "external_drivers" : null,
+      "jsonid" : "vrpathreg",
+      "log" : [ "${config.home.homeDirectory}/.local/share/Steam/logs" ],
+      "runtime" : [ "${pkgs.opencomposite}/lib/opencomposite" ],
+      "version" : 1
+    }
+  '';
+
   gtk = {
     enable = true;
     theme = {

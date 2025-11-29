@@ -46,6 +46,16 @@
       "dev.vencord.Vesktop"
       "org.gimp.GIMP"
     ];
+
+    wivrn = {
+      enable = true;
+      openFirewall = true;
+
+      autoStart = true;
+      defaultRuntime = true;
+
+      package = (pkgs.wivrn.override { cudaSupport = true; });
+    };
   };
 
   virtualisation = {
@@ -89,6 +99,11 @@
 
   networking = {
     hostName = "nixos-desktop";
+
+    firewall = {
+      allowedTCPPorts = [ 9757 ];
+      allowedUDPPorts = [ 9757 ];
+    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -130,8 +145,8 @@
     youtube-music
     yt-dlp
     phinger-cursors
-    winboat
     mixxx
+    thunderbird
 
     # Gaming
     wineWow64Packages.stagingFull
@@ -144,6 +159,7 @@
     prismlauncher
     heroic
     mangohud
+    envision
 
     # Easy Effects
     easyeffects

@@ -12,6 +12,7 @@ command = "pylsp"
 [[language]]
 name = "rust"
 language-servers = ["rust-analyzer"]
+formatter = { command = "rustfmt" }
 
 [language-server.rust-analyzer]
 command = "rust-analyzer"
