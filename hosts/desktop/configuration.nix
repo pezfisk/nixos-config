@@ -8,6 +8,8 @@
     inputs.home-manager.nixosModules.home-manager
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+
   hardware = {
     graphics.enable = true;
 
@@ -55,6 +57,13 @@
       defaultRuntime = true;
 
       package = (pkgs.wivrn.override { cudaSupport = true; });
+    };
+
+    sunshine = {
+      enable = true;
+      autoStart = true;
+      capSysAdmin = true;
+      openFirewall = true;
     };
   };
 
@@ -147,12 +156,15 @@
     phinger-cursors
     mixxx
     thunderbird
+    qbittorrent
+    android-tools
+    obs-studio
 
     # Gaming
     wineWow64Packages.stagingFull
     winetricks
     gamescope
-    gamescope
+    protonplus
     bottles
     moonlight-qt
     sunshine
@@ -160,6 +172,10 @@
     heroic
     mangohud
     envision
+    ryubing
+    lsfg-vk
+    lsfg-vk-ui
+    zulu25
 
     # Easy Effects
     easyeffects

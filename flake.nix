@@ -11,24 +11,15 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
 
-    simple-nixos-mailserver = {
-      url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
   };
 
   outputs =
     { self
     , nixpkgs
+      #    , nixpkgs-xr
     , home-manager
     , nix-flatpak
-    , simple-nixos-mailserver
-    , sops-nix
     , ...
     } @ inputs:
     let
@@ -49,6 +40,9 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
+            #            ({ config, pkgs, ... }: {
+            #              nixpkgs.overlays = [ nur.overlays.default ];
+            #            })
             nix-flatpak.nixosModules.nix-flatpak
             ./hosts/desktop/configuration.nix
           ];
@@ -67,8 +61,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./hosts/rpi4/configuration.nix
-            simple-nixos-mailserver.nixosModule
-            sops-nix.nixosModules.sops
           ];
         };
 
