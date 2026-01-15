@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -10,6 +10,11 @@
 
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
+  # systemd.services.nvidia-container-toolkit-cdi-generator = {
+  #   environment.LD_LIBRARY_PATH = "${lib.getLib config.hardware.nvidia.package}/lib";
+  # };
+  environment.etc."cdi/nvidia-container-toolkit.json".source = "/run/cdi/nvidia-container-toolkit.json";
+
   hardware = {
     graphics.enable = true;
 
@@ -19,6 +24,11 @@
       open = true;
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.production;
+    };
+
+    nvidia-container-toolkit = {
+      enable = true;
+      mount-nvidia-executables = true;
     };
 
     opentabletdriver = {
@@ -42,6 +52,8 @@
     displayManager.gdm.enable = true;
 
     xserver.videoDrivers = [ "nvidia" ];
+
+    ratbagd.enable = true;
 
     flatpak.packages = [
       "app.zen_browser.zen"
@@ -70,6 +82,14 @@
   virtualisation = {
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
+
+    docker.daemon.settings = {
+      runtimes = {
+        nvidia = {
+          path = "$(pkgs.nvidia-container-toolkit)/bin/nvidia-container-runtime";
+        };
+      };
+    };
   };
 
   home-manager = {
@@ -80,8 +100,22 @@
   programs = {
     virt-manager.enable = true;
     hyprland.enable = true;
-    steam.enable = true;
     gamemode.enable = true;
+
+    steam = {
+      enable = true;
+      gamescopeSession = {
+        enable = true;
+        steamArgs = [
+          "-tenfoot"
+        ];
+      };
+    };
+
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
 
     nh = {
       enable = true;
@@ -98,13 +132,6 @@
     enable = true;
     style = "adwaita";
   };
-
-  system.activationScripts.btrfsTurning = ''
-    # enable cow and compression on /home
-    if [ -d /home ]; then
-      ${pkgs.btrfs-progs}/bin/btrfs property set /home compression zstd || true
-    fi
-  '';
 
   networking = {
     hostName = "nixos-desktop";
@@ -133,6 +160,8 @@
     btrfs-progs
     uutils-coreutils-noprefix
     distrobox
+    docker-compose
+    nvidia-docker
 
     # Hyprland stuff
     hyprland
@@ -159,11 +188,11 @@
     qbittorrent
     android-tools
     obs-studio
+    gparted
 
     # Gaming
     wineWow64Packages.stagingFull
     winetricks
-    gamescope
     protonplus
     bottles
     moonlight-qt
