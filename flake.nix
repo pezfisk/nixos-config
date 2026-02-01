@@ -11,15 +11,15 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
 
-    #    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+    affinity-nix.url = "github:mrshmllow/affinity-nix";
   };
 
   outputs =
     { self
     , nixpkgs
-      #    , nixpkgs-xr
     , home-manager
     , nix-flatpak
+    , affinity-nix
     , ...
     } @ inputs:
     let
@@ -40,9 +40,6 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            #            ({ config, pkgs, ... }: {
-            #              nixpkgs.overlays = [ nur.overlays.default ];
-            #            })
             nix-flatpak.nixosModules.nix-flatpak
             ./hosts/desktop/configuration.nix
           ];

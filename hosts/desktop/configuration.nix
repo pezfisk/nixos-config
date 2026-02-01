@@ -205,6 +205,8 @@
     android-tools
     obs-studio
     gparted
+    inputs.affinity-nix.packages.x86_64-linux.v3
+    davinci-resolve
 
     # Gaming
     wineWow64Packages.stagingFull
